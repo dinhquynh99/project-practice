@@ -1,8 +1,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="SauceDemo Suite">
-    <test name="User Login">
+    <parameter name="Url" value="https://www.saucedemo.com/"/>
+
+    <test name="Run on FIREFOX" preserve-order="true">
+        <parameter name="Browser" value="Firefox"/>
         <classes>
-            <class name="tests.LoginTest"/>
+            <class name="saucedemo.LoginTest"/>
         </classes>
     </test>
 </suite>
