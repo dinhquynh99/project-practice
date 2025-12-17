@@ -4,9 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class BasePage {
 
@@ -26,16 +28,32 @@ public class BasePage {
         return driver.getTitle();
     }
 
-    public String getElementText(WebDriver driver, String locator) {
-        return getElement(driver, locator).getText();
-    }
-
     private By getByXpath(String locator) {
         return By.xpath(locator);
     }
 
-    private WebElement getElement(WebDriver driver, String locator) {
+    public String getElementCss(WebDriver driver, String locator, String propertyName) {
+        return getElement(driver, locator).getDomProperty(propertyName);
+    }
+
+    public String getElementText(WebDriver driver, String locator) {
+        return getElement(driver, locator).getText();
+    }
+
+    protected WebElement getElement(WebDriver driver, String locator) {
         return driver.findElement(getByXpath(locator));
+    }
+
+    public boolean isElementDisplayed(WebDriver driver, String locator) {
+        return getElement(driver, locator).isDisplayed();
+    }
+
+    public List<WebElement> getListElement(WebDriver driver, String locator) {
+        return driver.findElements(getByXpath(locator));
+    }
+
+    public int getListElementSize(WebDriver driver, String locator) {
+        return getListElement(driver, locator).size();
     }
 
     public void sendkeyToElement(WebDriver driver, String locator, String valueToSend) {
@@ -50,9 +68,11 @@ public class BasePage {
         getElement(driver, locator).clear();
     }
 
-    public boolean isElementDisplayed(WebDriver driver, String locator) {
-        return getElement(driver, locator).isDisplayed();
+    public void selectItemInDropdown(WebDriver driver, String locator, String textItem) {
+        Select select = new Select(getElement(driver, locator));
+        select.selectByVisibleText(textItem);
     }
+
 
     public WebElement waitElementVisible(WebDriver driver, String locator) {
         return new WebDriverWait(driver, longTimeout)

@@ -2,10 +2,10 @@
 <suite name="SauceDemo Suite">
     <parameter name="Url" value="https://www.saucedemo.com/"/>
 
-    <test name="Run on FIREFOX" preserve-order="true">
-        <parameter name="Browser" value="Firefox"/>
+    <test name="Run on FireFox" preserve-order="true">
+        <parameter name="Browser" value="FireFox"/>
         <classes>
-            <class name="saucedemo.LoginTest"/>
+            <class name="saucedemo.YourCartTest"/>
         </classes>
     </test>
 </suite>

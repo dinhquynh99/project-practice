@@ -24,10 +24,6 @@ public class LoginTest extends BaseTest {
         driver = getBrowserDriver(browserName, Url);
         userName1 = "standard_user";
         userName2 = "locked_out_user";
-        userName3 = "problem_user";
-        userName4 = "performance_glitch_user";
-        userName5 = "error_user";
-        userName6 = "visual_user";
         passwordForAll = "secret_sauce";
 
         loginPage = new LoginPO(driver);
@@ -54,7 +50,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void TC_02_Invalid_Login_Wrong_username() {
-        loginPage.enterToUsernameTextbox("wrong_user");
+        loginPage.enterToUsernameTextbox("locked_out_user");
         loginPage.enterToPasswordTextbox(passwordForAll);
         loginPage.clickToLoginButton();
 
@@ -78,7 +74,7 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void TC_04_Invalid_Login_Wrong_username_and_password() {
-        loginPage.enterToUsernameTextbox("wrong_user");
+        loginPage.enterToUsernameTextbox("locked_out_user");
         loginPage.enterToPasswordTextbox("wrong_password");
         loginPage.clickToLoginButton();
 

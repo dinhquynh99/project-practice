@@ -4,12 +4,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.openqa.selenium.safari.SafariDriver;
+import pageObjects.saucedemo.LoginPO;
+import pageObjects.saucedemo.ProductsListPO;
 
 import java.time.Duration;
-
-import static io.github.bonigarcia.wdm.config.DriverManagerType.*;
 
 public class BaseTest {
     private WebDriver driver;
@@ -27,6 +26,10 @@ public class BaseTest {
             case EDGE:
                 driver = new EdgeDriver();
                 break;
+            case SAFARI:
+                driver = new SafariDriver();
+                break;
+
             default:
                 throw new RuntimeException("Browser name is not valid!!!");
         }
@@ -36,6 +39,14 @@ public class BaseTest {
         driver.manage().window().maximize();
         driver.get(Url);
         return driver;
+    }
+
+    protected ProductsListPO loginAsValidUser() {
+        LoginPO loginPage = new LoginPO(driver);
+        loginPage.enterToUsernameTextbox("standard_user");
+        loginPage.enterToPasswordTextbox("secret_sauce");
+        loginPage.clickToLoginButton();
+        return new ProductsListPO(driver);
     }
 
 }
